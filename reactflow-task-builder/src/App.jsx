@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Delete' || event.key === 'Backspace') {
+      if (event.key === 'Delete') {
         setNodes((nds) => nds.filter((node) => !node.selected));
         setEdges((eds) => eds.filter((edge) => !edge.selected));
       }
