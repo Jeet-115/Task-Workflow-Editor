@@ -46,14 +46,14 @@ function App() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Delete') {
+      if (event.key === "Delete") {
         setNodes((nds) => nds.filter((node) => !node.selected));
         setEdges((eds) => eds.filter((edge) => !edge.selected));
       }
     };
-  
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [setNodes, setEdges]);
 
   const handleNodeChange = useCallback(
@@ -96,10 +96,7 @@ function App() {
   };
 
   const saveFlow = () => {
-    const flow = {
-      nodes,
-      edges,
-    };
+    const flow = { nodes, edges };
     localStorage.setItem("taskFlow", JSON.stringify(flow));
     alert("Flow saved!");
   };
@@ -124,33 +121,24 @@ function App() {
   }));
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: 10,
-          top: 10,
-          left: 10,
-          display: "flex",
-          gap: 10,
-        }}
-      >
-        <button onClick={addTaskNode} style={buttonStyle}>
+    <div className="w-screen h-screen relative">
+      <div className="absolute z-10 top-4 left-4 flex flex-wrap gap-3 bg-white p-3 rounded-md shadow-lg">
+        <button onClick={addTaskNode} className="btn">
           ➕ Add Task Node
         </button>
-        <button onClick={saveFlow} style={buttonStyle}>
+        <button onClick={saveFlow} className="btn">
           💾 Save
         </button>
-        <button onClick={loadFlow} style={buttonStyle}>
+        <button onClick={loadFlow} className="btn">
           📂 Load
         </button>
-        <button onClick={() => setBackgroundType("dots")} style={buttonStyle}>
+        <button onClick={() => setBackgroundType("dots")} className="btn">
           🔵 Dots
         </button>
-        <button onClick={() => setBackgroundType("lines")} style={buttonStyle}>
+        <button onClick={() => setBackgroundType("lines")} className="btn">
           📏 Lines
         </button>
-        <button onClick={() => setBackgroundType("cross")} style={buttonStyle}>
+        <button onClick={() => setBackgroundType("cross")} className="btn">
           ✴️ Stars
         </button>
       </div>
@@ -163,9 +151,8 @@ function App() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
-        nodesDraggable={true}
-        nodesConnectable={true}
-        
+        nodesDraggable
+        nodesConnectable
       >
         <Controls />
         <MiniMap
@@ -186,12 +173,8 @@ function App() {
   );
 }
 
-const buttonStyle = {
-  padding: "8px 12px",
-  background: "#3498db",
-  color: "#fff",
-  border: "none",
-  borderRadius: "5px",
-};
+const btnClass =
+  "px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded transition";
+document.querySelectorAll(".btn")?.forEach((btn) => btn.classList.add(...btnClass.split(" ")));
 
 export default App;
