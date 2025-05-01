@@ -11,7 +11,6 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import TaskNode from "./TaskNode";
 
-// Move nodeTypes outside of the component
 const nodeTypes = {
   taskNode: TaskNode,
 };
@@ -22,7 +21,7 @@ const initialNodes = [
     type: "taskNode",
     position: { x: 100, y: 100 },
     data: { label: "Start Task" },
-    style: { width: 150, height: 75 }, // Initial size of the node
+    style: { width: 150, height: 75 },
   },
 ];
 
@@ -57,7 +56,6 @@ function App() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [setNodes, setEdges]);
 
-  // Update node label
   const handleNodeChange = useCallback(
     (id, key, value) => {
       setNodes((nds) =>
@@ -91,7 +89,7 @@ function App() {
         onChange: handleNodeChange,
       },
       type: "taskNode",
-      style: { width: 150, height: 75 }, // Initial size of new nodes
+      style: { width: 150, height: 75 },
     };
     setNodes((nds) => [...nds, newNode]);
     setNodeId((id) => id + 1);
@@ -111,13 +109,12 @@ function App() {
     if (flow) {
       setNodes(flow.nodes);
       setEdges(flow.edges);
-      setNodeId(flow.nodes.length + 1); // ensure unique IDs
+      setNodeId(flow.nodes.length + 1);
     } else {
       alert("No saved flow found!");
     }
   };
 
-  // Ensure existing nodes also get the onChange handler
   const enhancedNodes = nodes.map((node) => ({
     ...node,
     data: {
@@ -166,12 +163,11 @@ function App() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
-        nodesDraggable={true} // Enable node dragging
-        nodesConnectable={true} // Allow nodes to be connected
+        nodesDraggable={true}
+        nodesConnectable={true}
         
       >
         <Controls />
-        {/* MiniMap and Background Grid components */}
         <MiniMap
           nodeColor={(node) => (node.type === "taskNode" ? "blue" : "#FFCC00")}
           zoomable={false}
